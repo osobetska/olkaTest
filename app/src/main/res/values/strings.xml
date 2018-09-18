@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">test</string>
-    <string name="u_need_input">Введіть будь-які числа:</string>
-    <string name="all_input">Введіть усі значення:</string>
+    <string name="u_need_input">Введіть числа:</string>
+    <string name="all_input">Введіть усі значення</string>
     <string name="desk">Спадання</string>
     <string name="asc">Зростання</string>
     <string name="choose_sort">Відсортувати в порядку: </string>

@@ -9,14 +9,16 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
+import java.util.Arrays;
+import java.util.Collections;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
     LinearLayout resultLay;
     EditText etOne, etTwo, etThree, etFour, etFive;
+    EditText sortOne, sortTwo, sortThree, sortFo, sortFi;
     RadioGroup radioGroup;
     RadioButton deskRadio;
     Boolean deskBool;
@@ -24,15 +26,18 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        final Button sortButton = findViewById(R.id.sort_bt);
         etOne = findViewById(R.id.et_one);
         etTwo = findViewById(R.id.et_two);
         etThree = findViewById(R.id.et_three);
         etFour = findViewById(R.id.et_four);
         etFive = findViewById(R.id.et_five);
 
-        ArrayList <Array> Array;
-        Array.add(0, etOne.getText().toString());
+        sortOne =findViewById(R.id.sort_one);
+        sortTwo =findViewById(R.id.sort_two);
+        sortThree =findViewById(R.id.sort_three);
+        sortFo =findViewById(R.id.sort_four);
+        sortFi = findViewById(R.id.sort_five);
 
         resultLay = findViewById(R.id.sort_result);
         resultLay.setVisibility(View.GONE);
@@ -46,7 +51,6 @@ public class MainActivity extends AppCompatActivity {
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 if (checkedId == R.id.desk){
                     deskBool = true;
-
                 }
                 else if (checkedId == R.id.asc)
                 {
@@ -56,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        Button sortButton = findViewById(R.id.sort_bt);
+
         sortButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -72,16 +76,43 @@ public class MainActivity extends AppCompatActivity {
         });
     }
     public void performSort(){
-        resultLay.setVisibility(View.VISIBLE);
+        TextView whatSort = findViewById(R.id.what_sort);
+        Integer one = Integer.parseInt(etOne.getText().toString());
+        Integer two = Integer.parseInt(etTwo.getText().toString());
+        Integer three = Integer.parseInt(etThree.getText().toString());
+        Integer four = Integer.parseInt(etFour.getText().toString());
+        Integer five = Integer.parseInt(etFive.getText().toString());
+        Integer array [] = {one, two, three, four, five};
+        Integer sortedArray [];
         if (deskBool)
         {
             Toast.makeText(this,getString(R.string.desk_check), Toast.LENGTH_SHORT).show();
-
+            Arrays.sort(array, Collections.<Integer>reverseOrder());
+            whatSort.setText(getString(R.string.desk_check));
 
         } else {
             Toast.makeText(this, getString(R.string.asc_check), Toast.LENGTH_SHORT).show();
+            Arrays.sort(array);
+//            sortU(array);
+            whatSort.setText(getString(R.string.asc_check));
+        }
+        sortOne.setText(String.valueOf(array[0]));
+        sortTwo.setText(String.valueOf(array[1]));
+        sortThree.setText(String.valueOf(array[2]));
+        sortFo.setText(String.valueOf(array[3]));
+        sortFi.setText(String.valueOf(array[4]));
+        resultLay.setVisibility(View.VISIBLE);
+
+    }
+public static void sortU (Integer arr[])
+{ Integer i,j, o;
+    for (i=0; i<arr.length; i++){
+        for (j=i+1; j<arr.length; j++){
+            o = arr[i];
+            arr[i]=arr[j];
+            arr[j]= o;
         }
     }
-
+}
 
 }
