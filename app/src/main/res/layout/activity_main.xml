@@ -223,7 +223,7 @@
                 android:layout_weight="1"
                 android:background="@drawable/edit_text_style"
                 android:checked="true"
-                android:text="@string/desk" />
+                android:text="@string/desc" />
 
             <RadioButton
                 android:id="@+id/asc"

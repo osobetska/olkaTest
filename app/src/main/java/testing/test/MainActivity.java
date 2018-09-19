@@ -20,8 +20,8 @@ public class MainActivity extends AppCompatActivity {
     EditText etOne, etTwo, etThree, etFour, etFive;
     EditText sortOne, sortTwo, sortThree, sortFo, sortFi;
     RadioGroup radioGroup;
-    RadioButton deskRadio;
-    Boolean deskBool;
+    RadioButton descRadio;
+    Boolean descBool;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,19 +42,19 @@ public class MainActivity extends AppCompatActivity {
         resultLay = findViewById(R.id.sort_result);
         resultLay.setVisibility(View.GONE);
 
-        deskRadio = findViewById(R.id.desk);
-        deskRadio.setChecked(true);
-        deskBool = true;
+        descRadio = findViewById(R.id.desk);
+        descRadio.setChecked(true);
+        descBool = true;
         radioGroup = findViewById(R.id.radiogroup);
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 if (checkedId == R.id.desk){
-                    deskBool = true;
+                    descBool = true;
                 }
                 else if (checkedId == R.id.asc)
                 {
-                    deskBool = false;
+                    descBool = false;
                 }
 
             }
@@ -83,17 +83,17 @@ public class MainActivity extends AppCompatActivity {
         Integer four = Integer.parseInt(etFour.getText().toString());
         Integer five = Integer.parseInt(etFive.getText().toString());
         Integer array [] = {one, two, three, four, five};
-        Integer sortedArray [];
-        if (deskBool)
+        if (descBool)
         {
-            Toast.makeText(this,getString(R.string.desk_check), Toast.LENGTH_SHORT).show();
-            Arrays.sort(array, Collections.<Integer>reverseOrder());
-            whatSort.setText(getString(R.string.desk_check));
+            Toast.makeText(this,getString(R.string.desc_check), Toast.LENGTH_SHORT).show();
+            sortDesc(array);
+//       або так  Arrays.sort(array, Collections.<Integer>reverseOrder());
+            whatSort.setText(getString(R.string.desc_check));
 
         } else {
             Toast.makeText(this, getString(R.string.asc_check), Toast.LENGTH_SHORT).show();
-            Arrays.sort(array);
-//            sortU(array);
+            sortAsc(array);
+ //     або    Arrays.sort(array);
             whatSort.setText(getString(R.string.asc_check));
         }
         sortOne.setText(String.valueOf(array[0]));
@@ -104,15 +104,31 @@ public class MainActivity extends AppCompatActivity {
         resultLay.setVisibility(View.VISIBLE);
 
     }
-public static void sortU (Integer arr[])
-{ Integer i,j, o;
-    for (i=0; i<arr.length; i++){
-        for (j=i+1; j<arr.length; j++){
-            o = arr[i];
-            arr[i]=arr[j];
-            arr[j]= o;
+public static void sortAsc (Integer arr[])
+{
+    for (int i=1; i<arr.length; ++i){
+        int j = i-1;
+        int temp = arr[i];
+        while (j>=0 && temp<arr[j])
+        {
+            arr[j+1] = arr[j];
+            arr[j] = temp;
+            --j;
         }
     }
 }
 
+    public static void sortDesc (Integer arr[])
+    {
+        for (int i=1; i<arr.length; ++i){
+            int j = i-1;
+            int temp = arr[i];
+            while (j>=0 && temp>arr[j])
+            {
+                arr[j+1] = arr[j];
+                arr[j] = temp;
+                --j;
+            }
+        }
+    }
 }
